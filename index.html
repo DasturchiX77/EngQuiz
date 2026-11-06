@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modal Verbs Quiz — Teacher: Nodirbek Arslonov 8.0</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#6b7385;--bd:#dde1ea;--ac:#2f5bea;--ok:#12803c;--okb:#e3f6ea;--no:#c0262d;--nob:#fde8ea}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1b202b;--tx:#e8ebf2;--mut:#98a1b5;--bd:#2c3342;--ac:#6f8cff;--ok:#5fd68a;--okb:#16301f;--no:#ff7b82;--nob:#3a1c1f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;padding:16px}
+.w{max-width:760px;margin:0 auto}
+h1{font-size:1.5rem;margin:.2em 0}
+.sub{color:var(--mut);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:14px 0}
+.card h2{font-size:1.05rem;margin:0 0 4px}
+.card .d{color:var(--mut);font-size:.9rem;margin:0 0 10px}
+.q{padding:8px 0;border-top:1px solid var(--bd)}
+.q:first-of-type{border-top:0}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.n{color:var(--mut);min-width:1.6em}
+input[type=text],textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;min-width:120px;flex:1 1 160px}
+textarea{width:100%;min-height:44px;flex:1 1 100%}
+.rc button{font:inherit;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:8px;padding:4px 14px;cursor:pointer}
+.rc button.s{background:var(--ac);color:#fff;border-color:var(--ac)}
+.fb{font-size:.9rem;margin:4px 0 0 1.8em;display:none}
+.q.ok{background:var(--okb)}.q.no{background:var(--nob)}
+.q.ok .fb,.q.no .fb{display:block}
+.q.ok .fb{color:var(--ok)}.q.no .fb{color:var(--no)}
+.ov{font:inherit;font-size:.85rem;margin-left:8px;border:1px solid var(--no);background:none;color:var(--no);border-radius:6px;padding:1px 8px;cursor:pointer}
+.bar{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:inherit;background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 22px;cursor:pointer}
+.btn.g{background:none;color:var(--ac);border:1px solid var(--ac)}
+#res{display:none;text-align:center}
+#res .big{font-size:2.2rem;font-weight:700}
+input[disabled]{opacity:.8}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Modal Verbs Quiz</h1>
+<p class="sub">may / might · must / have to · need to · should · Teacher: Nodirbek Arslonov 8.0</p>
+<div class="card"><div class="row"><label for="nm">Ismingiz:</label><input type="text" id="nm" placeholder="Ism Familiya"></div></div>
+<div id="quiz"></div>
+<div class="bar"><button class="btn" id="chk">Tekshirish</button><button class="btn g" id="rst">Qaytadan boshlash</button></div>
+<div class="card" id="res"><div class="big" id="sc"></div><p id="msg"></p><button class="btn g" id="cp">Natijani nusxalash</button></div>
+</div>
+<script>
+const S=[
+{t:"Exercise 4. Ruxsatmi yoki ehtimolmi?",d:"R (ruxsat) yoki E (ehtimol) ni tanlang.",k:"rc",i:[
+["May I use your pen?","R"],["It might snow tomorrow.","E"],["You may leave now.","R"],["He may be at home.","E"],["May I sit here?","R"],["We might go to the cinema tonight.","E"],["She might not come to the party.","E"],["You may not use a dictionary in the exam.","R"],["May I ask a question?","R"],["I might be late.","E"]]},
+{t:"Exercise 5. may / might + verb",d:"may yoki might + qavsdagi fe'lni yozing (masalan: may rain).",k:"f",i:[
+["It","tomorrow. (rain)","may rain|might rain"],["She","at home now. (be)","may be|might be"],["We","to the park on Sunday. (go)","may go|might go"],["I","a new phone next month. (buy)","may buy|might buy"],["He","the answer. (not know)","may not know|might not know"],["They","late. (be)","may be|might be"],["My father","to Samarkand next week. (travel)","may travel|might travel"],["The shop","today. (be closed)","may be closed|might be closed"]]},
+{t:"Exercise 6. need to / needs to / don't need to / doesn't need to",d:"To'g'ri shaklni yozing.",k:"f",i:[
+["I","buy some bread. We have no bread.","need to"],["She","go to the shop. Her brother has bought everything.","doesn't need to"],["You","hurry. We have a lot of time.","don't need to"],["He","see a doctor. He is very ill.","needs to"],["We","take an umbrella. It is sunny.","don't need to"],["Students","read this book for the exam.","need to"],["My sister","clean her room. It is very dirty.","needs to"],["You","wash the dishes. I have done it.","don't need to"],["They","wake up early. It is Sunday.","don't need to"]]},
+{t:"Exercise 7. Find and correct the mistakes",d:"Gapni to'g'ri yozing. Xato bo'lmasa, \"correct\" deb yozing.",k:"t",i:[
+["She must goes to school.","she must go to school"],["You should to drink more water.","you should drink more water"],["He have to work on Saturday.","he has to work on saturday"],["Does she must wear a uniform?","does she have to wear a uniform|must she wear a uniform"],["I might to be late.","i might be late"],["You mustn't run in the corridor.","correct|you mustn't run in the corridor"],["She doesn't has to get up early.","she doesn't have to get up early"],["We needs to buy some milk.","we need to buy some milk"],["May I to open the window?","may i open the window"],["You don't must smoke here.","you mustn't smoke here|you must not smoke here"]]},
+{t:"Exercise 8. Translate into English",d:"Inglizchaga tarjima qiling.",k:"t",i:[
+["Men har kuni ingliz tilini o'rganishim kerak. (majburiy)","i have to learn english every day|i must learn english every day|i have to study english every day|i must study english every day"],
+["Siz ko'proq suv ichishingiz kerak. (maslahat)","you should drink more water"],
+["Bu yerda chekish mumkin emas.","you mustn't smoke here|you must not smoke here|smoking is not allowed here|you can't smoke here|you cannot smoke here"],
+["Ertaga yomg'ir yog'ishi mumkin.","it may rain tomorrow|it might rain tomorrow"],
+["Kirsam bo'ladimi?","may i come in|may i enter"],
+["U ertaga ishga borishi shart emas.","he doesn't have to go to work tomorrow|she doesn't have to go to work tomorrow|he doesn't need to go to work tomorrow|she doesn't need to go to work tomorrow"],
+["Men sut sotib olishim kerak.","i need to buy milk|i have to buy milk|i must buy milk|i need to buy some milk|i have to buy some milk"],
+["Sen shoshilishing shart emas.","you don't have to hurry|you don't need to hurry"],
+["Ular kechqurun uyda bo'lishi mumkin.","they may be at home tonight|they might be at home tonight|they may be at home this evening|they might be at home this evening|they may be home tonight|they might be home tonight|they may be at home in the evening|they might be at home in the evening"],
+["Maktabda formada yurishimiz kerak. (qoida)","we must wear a uniform at school|we have to wear a uniform at school|we must wear uniform at school|we have to wear uniform at school"]]},
+{t:"Exercise 9. Complete with your own ideas",d:"Ball berilmaydi — o'z fikringizni yozing. Ustozingiz tekshiradi.",k:"o",i:[
+["I must","every day."],["You should","when you are tired."],["At school, we have to","."],["On Sunday, I don't have to","."],["Tomorrow I might","."],["You mustn't","in the classroom."],["I need to","today."],["May I",", please?"]]}
+];
+const norm=s=>s.toLowerCase().replace(/[’‘`]/g,"'").replace(/[.?!,]/g," ").replace(/\s+/g," ").trim();
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const Q=[];
+const root=document.getElementById("quiz");
+function build(){
+ root.innerHTML="";Q.length=0;
+ S.forEach((s,si)=>{
+  const c=el("div","card");c.append(el("h2","",s.t),el("p","d",s.d));
+  s.i.forEach((it,ii)=>{
+   const q=el("div","q"),r=el("div","row"),fb=el("div","fb");
+   r.append(el("span","n",(ii+1)+"."));
+   const o={q,fb,k:s.k,ok:false,done:false,val:""};
+   if(s.k==="rc"){
+    const g=el("span","rc");
+    ["R","E"].forEach(v=>{const b=el("button","",v);b.onclick=()=>{if(o.done)return;o.val=v;[...g.children].forEach(x=>x.classList.toggle("s",x===b))};g.append(b)});
+    r.append(g,el("span","",it[0]));o.ans=it[1];o.g=g;
+   }else if(s.k==="f"){
+    const inp=el("input");inp.type="text";inp.autocomplete="off";inp.autocapitalize="off";
+    r.append(el("span","",it[0]),inp,el("span","",it[1]));o.inp=inp;o.ans=it[2].split("|");
+   }else if(s.k==="t"){
+    r.append(el("span","",it[0]));
+    const inp=el("input");inp.type="text";inp.autocomplete="off";inp.autocapitalize="off";inp.style.flex="1 1 100%";
+    r.append(inp);o.inp=inp;o.ans=it[1].split("|");
+   }else{
+    const inp=el("input");inp.type="text";
+    r.append(el("span","",it[0]),inp,el("span","",it[1]));o.inp=inp;o.free=true;
+   }
+   q.append(r,fb);c.append(q);if(!o.free)Q.push(o);else Q.push(o);
+  });
+  root.append(c);
+ });
+}
+function show(o,ok){
+ o.ok=ok;o.q.classList.remove("ok","no");o.q.classList.add(ok?"ok":"no");
+ const a=o.k==="rc"?o.ans:o.ans.map(x=>x==="correct"?"(xato yo'q)":x).join("  /  ");
+ o.fb.innerHTML=ok?"✓ To'g'ri":"✗ To'g'ri javob: <b>"+a+"</b>";
+ if(!ok&&o.k!=="rc"){const b=el("button","ov","Mening javobim ham to'g'ri");b.onclick=()=>{show(o,true);total()};o.fb.append(b)}
+}
+function total(){
+ const sc=Q.filter(o=>!o.free);const n=sc.filter(o=>o.ok).length,m=sc.length,p=Math.round(n/m*100);
+ document.getElementById("sc").textContent=n+" / "+m+"  ("+p+"%)";
+ document.getElementById("msg").textContent=p>=90?"Excellent! Band 8+ darajasi 🎉":p>=75?"Very good! Xatolaringizni qayta ko'rib chiqing.":p>=50?"Good effort. Qoidalarni yana takrorlang.":"Mavzuni qayta o'rganib, yana urinib ko'ring.";
+ document.getElementById("res").style.display="block";return{n,m,p};
+}
+document.getElementById("chk").onclick=()=>{
+ Q.forEach(o=>{
+  if(o.free){o.done=true;if(o.inp)o.inp.disabled=true;return}
+  o.done=true;
+  if(o.k==="rc")show(o,o.val===o.ans);
+  else{o.inp.disabled=true;const v=norm(o.inp.value);show(o,o.ans.some(a=>norm(a)===v))}
+ });
+ total();document.getElementById("res").scrollIntoView({behavior:"smooth"});
+};
+document.getElementById("rst").onclick=()=>{build();document.getElementById("res").style.display="none";window.scrollTo({top:0,behavior:"smooth"})};
+document.getElementById("cp").onclick=()=>{
+ const r=total(),nm=document.getElementById("nm").value||"—";
+ const t="Modal Verbs Quiz\nIsm: "+nm+"\nNatija: "+r.n+"/"+r.m+" ("+r.p+"%)";
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>alert("Nusxalandi!"),()=>alert(t));
+};
+build();
+</script>
+</body>
+</html>
